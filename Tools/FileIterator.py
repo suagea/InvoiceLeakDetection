@@ -4,6 +4,9 @@
 # @File : FileIterator
 import os
 
+from Config import REQ_DOC
+from Tools.path_parser import parse_path_info
+
 
 class FileIterator:
   def __init__(self, start_directory, depth=-1):
@@ -32,6 +35,9 @@ class FileIterator:
 
 
 if __name__ == '__main__':
-  start_directory = r'D:\\'
-  for filepath in FileIterator(start_directory, depth=2):
-    print(filepath)
+  start_directory = REQ_DOC
+  for filepath in FileIterator(start_directory):
+    pi = parse_path_info(filepath)
+    if pi.basename.endswith('写真') or pi.extension not in ['.xls', '.xlsx']:
+      continue
+    print(pi)

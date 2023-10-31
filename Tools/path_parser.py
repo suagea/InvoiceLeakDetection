@@ -20,13 +20,16 @@ class PathInfo:
       path_type: Optional[FileType],
       directory: Optional[str],
       name: Optional[str],
+      basename: Optional[str],
       full_path: str,
       extension: str,
       valid: bool,
-      size: int) -> None:
+      size: int
+  ) -> None:
     self.path_type = path_type
     self.directory = directory
     self.name = name
+    self.basename = basename
     self.full_path = full_path
     self.extension = extension
     self.valid = valid
@@ -37,6 +40,7 @@ class PathInfo:
       f'path_type:{self.path_type}\n' \
       f'directory:{self.directory}\n' \
       f'name:{self.name}\n' \
+      f'basename:{self.basename}\n' \
       f'full_path:{self.full_path}\n' \
       f'extension:{self.extension}\n' \
       f'valid:{self.valid}\n' \
@@ -67,14 +71,11 @@ def parse_path_info(path: str) -> PathInfo:
   else:
     valid = False
 
-  return PathInfo(path_type, directory, name, path, extension, valid, size)
+  # 获取不带扩展名的文件名
+  basename = os.path.splitext(name)[0]
+
+  return PathInfo(path_type, directory, name, basename, path, extension, valid, size)
 
 
 if __name__ == '__main__':
-  print(parse_path_info(
-    r"D:\GitHome\InvoiceLeakDetection\test_data\BM見積り\駒込スクエア　日常清掃月2回.xlsx"
-  ))
-
-  # print(parse_path_info(
-  #   r"D:\GitHome\InvoiceLeakDetection\test_data\BM見積り\啊记否.a"
-  # ))
+  pass
